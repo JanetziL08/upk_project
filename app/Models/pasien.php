@@ -29,5 +29,19 @@ class pasien extends Model
     {
         return $this->hasMany(Pendaftaran::class, 'id_pasien', 'id_pasien');
     }
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'id_pasien', 'id_pasien');
+    }
+
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class, 'id_pasien', 'id_pasien');
+    }
+
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'id_pasien', 'id_pasien');
+    }
 
 }
