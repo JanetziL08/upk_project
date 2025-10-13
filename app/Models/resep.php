@@ -21,12 +21,12 @@ class Resep extends Model
     // Relasi: satu resep punya banyak detail
     public function detailResep()
     {
-        return $this->hasMany(DetailResep::class, 'id_resep');
+        return $this->hasMany(detail_Resep::class, 'id_resep');
     }
 
     // Relasi ke pemeriksaan
     public function pemeriksaan()
     {
-        return $this->belongsTo(Pemeriksaan::class, 'id_pemeriksaan');
+        return $this->belongsTo(pemeriksaan::class, 'id_pemeriksaan');
     }
 }
