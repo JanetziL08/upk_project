@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class mahasiswa extends Model
 {
-//
+    //
     protected $table = 'mahasiswa';
     protected $primaryKey = 'id_pasien';
-    public $incrementing = false; 
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
@@ -27,6 +27,6 @@ class mahasiswa extends Model
     // Relasi ke User (jika pakai tabel user)
     public function user()
     {
-        return $this->belongsTo(User::class, 'nim', 'username');
+        return $this->belongsTo(User::class, 'nim', 'id_ref');
     }
 }

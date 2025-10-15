@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Pasien;
-use App\Models\User; 
+use App\Models\User;
 
 class Dosen extends Model
 {
- protected $table = 'dosen';
+    protected $table = 'dosen';
     protected $primaryKey = 'npp_dsn'; // kalau memang PK nya npp_dsn
     public $incrementing = false;
     public $timestamps = false;
