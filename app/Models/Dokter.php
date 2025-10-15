@@ -19,7 +19,7 @@ class Dokter extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_dokter', 'username');
+        return $this->belongsTo(User::class, 'id_dokter', 'id_ref');
     }
 
 }

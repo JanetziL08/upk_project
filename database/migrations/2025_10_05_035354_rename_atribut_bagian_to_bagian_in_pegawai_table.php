@@ -8,14 +8,18 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('pegawai', function (Blueprint $table) {
-            $table->renameColumn('atribut_bagian', 'bagian');
+            // Tambahkan kolom baru 'bagian'
+            $table->string('bagian')->nullable()->after('npp_pgw');
+            // sesuaikan posisi 'after' dengan kolom yang sudah ada, misalnya setelah kolom 'nama'
         });
     }
 
     public function down(): void
     {
         Schema::table('pegawai', function (Blueprint $table) {
-            $table->renameColumn('bagian', 'atribut_bagian');
+            // Hapus kolom 'bagian' jika migrasi dibatalkan
+            $table->dropColumn('bagian');
         });
     }
 };
+

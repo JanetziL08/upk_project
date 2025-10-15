@@ -17,7 +17,7 @@ class pasien extends Model
     protected $fillable = [
         'id_pasien',
         'nama',
-        'umur',
+        'tanggal',
         'alamat',
         'no_telp',
         'tipe_pasien'
@@ -42,6 +42,10 @@ class pasien extends Model
     public function dosen()
     {
         return $this->hasOne(Dosen::class, 'id_pasien', 'id_pasien');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_pasien', 'id_ref');
     }
 
 }
