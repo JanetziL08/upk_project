@@ -24,7 +24,7 @@ class Pegawai extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'npp_pgw', 'username');
+        return $this->belongsTo(User::class, 'npp_pgw', 'id_ref');
     }
 
 }

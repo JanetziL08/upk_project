@@ -13,11 +13,15 @@ class User extends Authenticatable
     public $timestamps = true;          // karena tabel user ada timestamps
 
     protected $fillable = [
-        'username', 'password', 'role', 'id_ref'
+        'username',
+        'password',
+        'role',
+        'id_ref'
     ];
 
     protected $hidden = [
         'password',
+        'remember_token',
     ];
 
     // Relasi ke Mahasiswa
@@ -49,4 +53,31 @@ class User extends Authenticatable
     {
         return $this->hasOne(Dokter::class, 'id_dokter', 'id_ref');
     }
+    public function identity()
+    {
+        switch ($this->role) {
+            case 'dokter':
+                return $this->dokter;
+            case 'administrator':
+                return $this->administrator;
+            case 'pasien':
+                // pasien bisa mahasiswa / pegawai / dosen
+                return $this->mahasiswa ?? $this->pegawai ?? $this->dosen;
+        }
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Set password otomatis jika kosong
+        static::creating(function ($user) {
+            if (empty($user->password)) {
+                $user->password = bcrypt($user->username);
+            }
+
+            // tandai belum ubah password
+            $user->password_changed = false;
+        });
+    }
+
 }
