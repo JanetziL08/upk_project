@@ -19,7 +19,7 @@ class Administrator extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'npp', 'username');
+        return $this->belongsTo(User::class, 'npp', 'id_ref');
     }
 
 }
