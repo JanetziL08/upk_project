@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\JadwalDokter;
+use Illuminate\Http\Request;
+
+class JadwalDokterController extends Controller
+{
+    // GET /jadwal-dokter → ambil semua jadwal
+    public function index()
+    {
+        $jadwalDokters = JadwalDokter::with('dokter')->get();
+        return response()->json($jadwalDokters);
+    }
+
+    // POST /jadwal-dokter → tambah jadwal baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_dokter'   => 'required|exists:dokter,id_dokter',
+            'nama_dokter' => 'required|string|max:100',
+            'tanggal'     => 'required|date',
+            'jam_mulai'   => 'required|string|max:10',
+            'jam_selesai' => 'required|string|max:10',
+        ]);
+
+        $jadwal = JadwalDokter::create($request->all());
+
+        return response()->json([
+            'message' => 'Jadwal Dokter berhasil ditambahkan',
+            'data'    => $jadwal
+        ], 201);
+    }
+
+    // GET /jadwal-dokter/{id} → ambil jadwal tertentu
+    public function show($id)
+    {
+        $jadwal = JadwalDokter::with('dokter')->findOrFail($id);
+        return response()->json($jadwal);
+    }
+
+    // PUT /jadwal-dokter/{id} → update jadwal tertentu
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_dokter'   => 'required|exists:dokter,id_dokter',
+            'nama_dokter' => 'required|string|max:100',
+            'tanggal'     => 'required|date',
+            'jam_mulai'   => 'required|string|max:10',
+            'jam_selesai' => 'required|string|max:10',
+        ]);
+
+        $jadwal = JadwalDokter::findOrFail($id);
+        $jadwal->update($request->all());
+
+        return response()->json([
+            'message' => 'Jadwal Dokter berhasil diperbarui',
+            'data'    => $jadwal
+        ]);
+    }
+
+    // DELETE /jadwal-dokter/{id} → hapus jadwal
+    public function destroy($id)
+    {
+        JadwalDokter::destroy($id);
+
+        return response()->json([
+            'message' => 'Jadwal Dokter berhasil dihapus'
+        ]);
+    }
+}
